@@ -45,17 +45,6 @@ Some of them can be toggled at runtime, some cannot.
 * Can load DFFs and TXDs from other platforms, possibly with a performance penalty
 * ...
 
-## To-Do
-
-The following things would be nice to have/do:
-
-* Fix physics for high FPS
-* Improve performance on lower end devices, especially the OpenGL layer on the Raspberry Pi (if you have experience with this, please get in touch)
-* [PS2 port](https://github.com/mrxenginner/reVC/wiki/PS2-port)
-* Xbox port (not quite as important)
-* reverse remaining unused/debug functions
-* compare CodeWarrior build with original binary for more accurate code (very tedious)
-
 ## Modding
 
 Asset modifications (models, texture, handling, script, ...) should work the same way as with original GTA for the most part.
@@ -64,11 +53,8 @@ Mods that make changes to the code (dll/asi, CLEO, limit adjusters) will *not* w
 Some things these mods do are already implemented in re3 (much of SkyGFX, GInput, SilentPatch, Widescreen fix),
 others can easily be achieved (increasing limis, see `config.h`),
 others will simply have to be rewritten and integrated into the code directly.
-Sorry for the inconvenience.
 
 ## Building from Source
-
-When using premake, you may want to point GTA_VC_RE_DIR environment variable to GTA Vice City root folder if you want the executable to be moved there via post-build script.
 
 Clone the repository with `git clone --recursive -b miami https://github.com/rmnn-rs/reVC.git reVC`. Then `cd reVC` into the cloned repository.
 
@@ -101,26 +87,6 @@ For FreeBSD using premake, proceed: [Building on FreeBSD](https://github.com/mrx
 > :information_source: There are various settings in [config.h](https://github.com/mrxenginner/reVC/tree/miami/src/core/config.h), you may want to take a look there.
 
 > :information_source: reVC uses completely homebrew RenderWare-replacement rendering engine; [librw](https://github.com/aap/librw/). librw comes as submodule of re3, but you also can use LIBRW enviorenment variable to specify path to your own librw.
-
-If you feel the need, you can also use CodeWarrior 7 to compile reVC using the supplied codewarrior/reVC.mcp project - this requires the original RW34 libraries, and the DX8 SDK. The build is unstable compared to the MSVC builds though, and is mostly meant to serve as a reference.
-
-## Contributing
-As long as it's not linux/cross-platform skeleton/compatibility layer, all of the code on the repo that's not behind a preprocessor condition(like FIX_BUGS) are **completely** reversed code from original binaries.
-
-We **don't** accept custom codes, as long as it's not wrapped via preprocessor conditions, or it's linux/cross-platform skeleton/compatibility layer.
-
-We accept only these kinds of PRs;
-
-- A new feature that exists in at least one of the GTAs (if it wasn't in III/VC then it doesn't have to be decompilation)
-- Game, UI or UX bug fixes (if it's a fix to original code, it should be behind FIX_BUGS)
-- Platform-specific and/or unused code that's not been reversed yet
-- Makes reversed code more understandable/accurate, as in "which code would produce this assembly".
-- A new cross-platform skeleton/compatibility layer, or improvements to them
-- Translation fixes, for languages original game supported
-- Code that increase maintainability
-
-Do not use features from C++11 or later.
-
 
 ## License
 
