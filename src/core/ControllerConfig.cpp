@@ -230,55 +230,55 @@ void CControllerConfigManager::InitDefaultControlConfiguration()
 {
 	SetControllerKeyAssociatedWithAction    (VEHICLE_LOOKLEFT,                    rsPADEND,   KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (VEHICLE_LOOKLEFT,                    'Q',        OPTIONAL_EXTRA);
-										    						              
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_LOOKRIGHT,                   rsPADDOWN,  KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (VEHICLE_LOOKRIGHT,                   'E',        OPTIONAL_EXTRA);
-																              
-	if ( _dwOperatingSystemVersion == OS_WIN98 )											              
-		SetControllerKeyAssociatedWithAction(VEHICLE_HORN,                        rsSHIFT,    OPTIONAL_EXTRA); // BUG: must be KEYBOARD ?											              
-	else		
+
+	if ( _dwOperatingSystemVersion == OS_WIN98 )
+		SetControllerKeyAssociatedWithAction(VEHICLE_HORN,                        rsSHIFT,    OPTIONAL_EXTRA); // BUG: must be KEYBOARD ?
+	else
 	{
 		SetControllerKeyAssociatedWithAction(VEHICLE_HORN,                        rsLSHIFT,   OPTIONAL_EXTRA);
 		SetControllerKeyAssociatedWithAction(VEHICLE_HORN,                        rsRSHIFT,   KEYBOARD);
-	}													              
-																	              
+	}
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_HANDBRAKE,                   rsRCTRL,    KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (VEHICLE_HANDBRAKE,                   ' ',        OPTIONAL_EXTRA);
-															                      
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_ENTER_EXIT,                  rsENTER,    KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (VEHICLE_ENTER_EXIT,                  'F',        OPTIONAL_EXTRA);
-										    					                  
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_ACCELERATE,                  rsUP,       KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (VEHICLE_ACCELERATE,                  'W',        OPTIONAL_EXTRA);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_CHANGE_RADIO_STATION,        rsINS,      KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (VEHICLE_CHANGE_RADIO_STATION,        'R',        OPTIONAL_EXTRA);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_BRAKE,                       rsDOWN,     KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (VEHICLE_BRAKE,                       'S',        OPTIONAL_EXTRA);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (TOGGLE_SUBMISSIONS,                  rsPLUS,     KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (TOGGLE_SUBMISSIONS,                  rsCAPSLK,   OPTIONAL_EXTRA);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (GO_LEFT,                             rsLEFT,     KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (GO_LEFT,                             'A',        OPTIONAL_EXTRA);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (GO_RIGHT,                            rsRIGHT,    KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (GO_RIGHT,                            'D',        OPTIONAL_EXTRA);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (GO_FORWARD,                          rsUP,       KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (GO_FORWARD,                          'W',        OPTIONAL_EXTRA);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (GO_BACK,                             rsDOWN,     KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (GO_BACK,                             'S',        OPTIONAL_EXTRA);
 
 	SetControllerKeyAssociatedWithAction    (NETWORK_TALK,                        'T',        KEYBOARD);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (PED_LOOKBEHIND,                      rsPADEND,   KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (PED_LOOKBEHIND,                      rsCAPSLK,   OPTIONAL_EXTRA);
 
 	SetControllerKeyAssociatedWithAction    (PED_DUCK,                            'C',        KEYBOARD);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (PED_FIREWEAPON,                      rsPADINS,   KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (PED_FIREWEAPON,                      rsLCTRL,    OPTIONAL_EXTRA);
 #ifdef BIND_VEHICLE_FIREWEAPON
@@ -288,17 +288,17 @@ void CControllerConfigManager::InitDefaultControlConfiguration()
 	SetControllerKeyAssociatedWithAction    (PED_CYCLE_WEAPON_LEFT,               rsPADDEL,   KEYBOARD);
 
 	SetControllerKeyAssociatedWithAction    (PED_CYCLE_WEAPON_RIGHT,              rsPADENTER, OPTIONAL_EXTRA); // BUG: must be KEYBOARD ?
-																		          
+
 	SetControllerKeyAssociatedWithAction    (PED_LOCK_TARGET,                     rsDEL,      KEYBOARD);
-																		          
+
 	SetControllerKeyAssociatedWithAction    (PED_JUMPING,                         rsRCTRL,    KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (PED_JUMPING,                         ' ',        OPTIONAL_EXTRA);
 
 	SetControllerKeyAssociatedWithAction    (PED_ANSWER_PHONE,                    rsTAB,      KEYBOARD);
-																              
-	if ( _dwOperatingSystemVersion == OS_WIN98 )											              
-		SetControllerKeyAssociatedWithAction(PED_SPRINT,                          rsSHIFT,    OPTIONAL_EXTRA); // BUG: must be KEYBOARD ?											              
-	else		
+
+	if ( _dwOperatingSystemVersion == OS_WIN98 )
+		SetControllerKeyAssociatedWithAction(PED_SPRINT,                          rsSHIFT,    OPTIONAL_EXTRA); // BUG: must be KEYBOARD ?
+	else
 	{
 		SetControllerKeyAssociatedWithAction(PED_SPRINT,                          rsLSHIFT,   OPTIONAL_EXTRA);
 #ifndef FIX_BUGS
@@ -311,31 +311,31 @@ void CControllerConfigManager::InitDefaultControlConfiguration()
 	SetControllerKeyAssociatedWithAction    (PED_CYCLE_TARGET_LEFT,               '[',        KEYBOARD);
 
 	SetControllerKeyAssociatedWithAction    (PED_CYCLE_TARGET_RIGHT,              ']',        OPTIONAL_EXTRA); // BUG: must be KEYBOARD ?
-																			      
+
 	SetControllerKeyAssociatedWithAction    (PED_CENTER_CAMERA_BEHIND_PLAYER,     '#',        KEYBOARD);
-	
+
 	SetControllerKeyAssociatedWithAction    (PED_SNIPER_ZOOM_IN,                  rsPGUP,     KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (PED_SNIPER_ZOOM_IN,                  'Z',        OPTIONAL_EXTRA);
-										    
+
 	SetControllerKeyAssociatedWithAction    (PED_SNIPER_ZOOM_OUT,                 rsPGDN,     KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (PED_SNIPER_ZOOM_OUT,                 'X',        OPTIONAL_EXTRA);
-										    
+
 	SetControllerKeyAssociatedWithAction    (PED_1RST_PERSON_LOOK_LEFT,           rsPADLEFT,  KEYBOARD);
 
 	SetControllerKeyAssociatedWithAction    (PED_1RST_PERSON_LOOK_RIGHT,          rsPADRIGHT, KEYBOARD);
-										    
+
 	SetControllerKeyAssociatedWithAction    (PED_1RST_PERSON_LOOK_UP,             rsPADUP,    KEYBOARD);
 
 	SetControllerKeyAssociatedWithAction    (PED_1RST_PERSON_LOOK_DOWN,           rsPAD5,     KEYBOARD);
-										    
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_TURRETLEFT,                  rsPADLEFT,  KEYBOARD);
 
 	SetControllerKeyAssociatedWithAction    (VEHICLE_TURRETRIGHT,                 rsPAD5,     KEYBOARD);
-										    
+
 	SetControllerKeyAssociatedWithAction    (VEHICLE_TURRETUP,                    rsPADPGUP,  KEYBOARD);
 
 	SetControllerKeyAssociatedWithAction    (VEHICLE_TURRETDOWN,                  rsPADRIGHT, KEYBOARD);
-										    
+
 	SetControllerKeyAssociatedWithAction    (CAMERA_CHANGE_VIEW_ALL_SITUATIONS,   rsHOME,     KEYBOARD);
 	SetControllerKeyAssociatedWithAction    (CAMERA_CHANGE_VIEW_ALL_SITUATIONS,   'V',        OPTIONAL_EXTRA);
 
@@ -354,7 +354,7 @@ void CControllerConfigManager::InitDefaultControlConfigMouse(CMouseControllerSta
 	{
 		m_bMouseAssociated = true;
 		SetMouseButtonAssociatedWithAction(PED_FIREWEAPON,               1);
-#ifdef BIND_VEHICLE_FIREWEAPON	
+#ifdef BIND_VEHICLE_FIREWEAPON
 		SetMouseButtonAssociatedWithAction(VEHICLE_FIREWEAPON,           1);
 #endif
 	}
@@ -434,14 +434,14 @@ void CControllerConfigManager::InitDefaultControlConfigJoyPad(uint32 buttons)
 		{
 		IF_BTN_IN_RANGE(16)
 			SetControllerKeyAssociatedWithAction(GO_LEFT,                           16, JOYSTICK);
-		IF_BTN_IN_RANGE(15)											                        
+		IF_BTN_IN_RANGE(15)
 			SetControllerKeyAssociatedWithAction(GO_BACK,                           15, JOYSTICK);
-		IF_BTN_IN_RANGE(14)											                        
+		IF_BTN_IN_RANGE(14)
 			SetControllerKeyAssociatedWithAction(GO_RIGHT,                          14, JOYSTICK);
-		IF_BTN_IN_RANGE(13)											                        
+		IF_BTN_IN_RANGE(13)
 			SetControllerKeyAssociatedWithAction(GO_FORWARD,                        13, JOYSTICK);
-		IF_BTN_IN_RANGE(12)													                
-		IF_BTN_IN_RANGE(11)													                
+		IF_BTN_IN_RANGE(12)
+		IF_BTN_IN_RANGE(11)
 			SetControllerKeyAssociatedWithAction(PED_LOOKBEHIND,                    11, JOYSTICK);
 			SetControllerKeyAssociatedWithAction(TOGGLE_SUBMISSIONS,                11, JOYSTICK);
 		IF_BTN_IN_RANGE(10)
@@ -472,7 +472,7 @@ void CControllerConfigManager::InitDefaultControlConfigJoyPad(uint32 buttons)
 			SetControllerKeyAssociatedWithAction(PED_SNIPER_ZOOM_OUT,                3, JOYSTICK);
 		IF_BTN_IN_RANGE(2)
 			SetControllerKeyAssociatedWithAction(PED_FIREWEAPON,                     2, JOYSTICK);
-#ifdef BIND_VEHICLE_FIREWEAPON	
+#ifdef BIND_VEHICLE_FIREWEAPON
 			SetControllerKeyAssociatedWithAction(VEHICLE_FIREWEAPON,                 2, JOYSTICK);
 #endif
 		IF_BTN_IN_RANGE(1)
@@ -560,6 +560,7 @@ void CControllerConfigManager::InitialiseControllerActionNameArray()
 	SETACTIONNAME(VEHICLE_ACCELERATE);
 	SETACTIONNAME(VEHICLE_BRAKE);
 	SETACTIONNAME(VEHICLE_CHANGE_RADIO_STATION);
+	SETACTIONNAME(VEHICLE_LIGHTS);
 	SETACTIONNAME(TOGGLE_SUBMISSIONS);
 	SETACTIONNAME(PED_SNIPER_ZOOM_IN);
 	SETACTIONNAME(PED_SNIPER_ZOOM_OUT);
@@ -691,7 +692,7 @@ void CControllerConfigManager::UpdateJoyInConfigMenus_ButtonDown(int32 button, i
 void CControllerConfigManager::AffectControllerStateOn_ButtonDown(int32 button, eControllerType type)
 {
 	bool process = true;
-	
+
 	if ((type == KEYBOARD || type == OPTIONAL_EXTRA) && button == rsNULL)
 		process = false;
 	if (type == JOYSTICK && button == 0)
@@ -727,7 +728,7 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown(int32 button, 
 		}
 
 		CControllerState *state;
-		
+
 		switch (type)
 		{
 		case KEYBOARD:
@@ -800,7 +801,7 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_Driving(int32 
 		state.Square = 255;
 	if (button == GetControllerKeyAssociatedWithAction(TOGGLE_SUBMISSIONS, type))
 		state.RightShock = 255;
-	
+
 	if (button == GetControllerKeyAssociatedWithAction(VEHICLE_TURRETLEFT, type))
 	{
 		if (state.RightStickX == 128 || m_aSimCheckers[SIM_X2][type])
@@ -824,7 +825,7 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_Driving(int32 
 		else
 			state.RightStickX = 128;
 	}
-	
+
 	bool isDodo = false;
 	if (FindPlayerVehicle() && (FindPlayerVehicle()->IsVehicle() && (
 		FindPlayerVehicle()->GetModelIndex() == MI_DODO
@@ -836,7 +837,7 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_Driving(int32 
 		isDodo = true;
 	}
 
-	
+
 	if (button == GetControllerKeyAssociatedWithAction(VEHICLE_TURRETUP, type))
 	{
 		if (isDodo == true)
@@ -860,7 +861,7 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_Driving(int32 
 			state.RightStickY = 128;
 		}
 	}
-	
+
 	if (button == GetControllerKeyAssociatedWithAction(VEHICLE_TURRETDOWN, type))
 	{
 		if (isDodo == true)
@@ -910,7 +911,7 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_ThirdPersonOnl
 		state.Cross = 255;
 	if (button == GetControllerKeyAssociatedWithAction(PED_DUCK, type))
 		state.LeftShock = 255;
-	
+
 	if (FrontEndMenuManager.m_ControlMethod == CONTROL_CLASSIC)
 	{
 		if (button == GetControllerKeyAssociatedWithAction(PED_CYCLE_TARGET_LEFT, type))
@@ -1180,7 +1181,7 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonUp(int32 button, eC
 	if (process)
 	{
 		CPad *pad = CPad::GetPad(PAD1);
-		
+
 		if (pad != NULL)
 		{
 			if (FrontEndMenuManager.GetIsMenuActive())
@@ -1208,7 +1209,7 @@ void CControllerConfigManager::AffectPadFromKeyBoard()
 	bool processdown = false;
 	if (!CPad::m_bMapPadOneToPadTwo && !FrontEndMenuManager.GetIsMenuActive())
 		processdown = true;
-	
+
 	for (int32 i = 0; i < MAX_CONTROLLERACTIONS; i++)
 	{
 		int32 key = GetControllerKeyAssociatedWithAction((e_ControllerAction)i, KEYBOARD);
@@ -1231,7 +1232,7 @@ void CControllerConfigManager::AffectPadFromMouse()
 	bool processdown = false;
 	if (!CPad::m_bMapPadOneToPadTwo && !FrontEndMenuManager.GetIsMenuActive())
 		processdown = true;
-	
+
 	for (int32 i = 0; i < MAX_CONTROLLERACTIONS; i++)
 	{
 		int32 button = GetControllerKeyAssociatedWithAction((e_ControllerAction)i, MOUSE);
@@ -2077,7 +2078,7 @@ wchar *CControllerConfigManager::GetControllerSettingTextWithOrderNumber(e_Contr
 			}
 		}
 	}
-	
+
 	return NULL;
 }
 
@@ -2458,7 +2459,7 @@ wchar *CControllerConfigManager::GetControllerSettingTextMouse(e_ControllerActio
 
 wchar *CControllerConfigManager::GetControllerSettingTextJoystick(e_ControllerAction action)
 {
-	if (m_aSettings[action][JOYSTICK].m_Key == 0) 
+	if (m_aSettings[action][JOYSTICK].m_Key == 0)
 		return NULL;
 
 	static wchar NewStringWithNumber[30];
@@ -2813,7 +2814,7 @@ void CControllerConfigManager::GetWideStringOfCommandKeys(uint16 action, wchar *
 					CMessages::WideStringCopy(&text[pos1 + 1],
 						TheText.Get("FEC_ORR"),	// "or"
 						leight - (pos1 + 1));
-					
+
 					uint16 pos2 = CMessages::GetWideStringLength(text);
 					text[pos2 + 0] = ' ';
 					text[pos2 + 1] = '\0';
@@ -2893,13 +2894,13 @@ wchar *CControllerConfigManager::GetButtonComboText(e_ControllerAction action)
 	case PED_CYCLE_TARGET_LEFT:
 		return TheText.Get("FEC_PTL");	// Use LockTarget with Weapon Switch Left.
 		break;
-	
+
 	case PED_CYCLE_TARGET_RIGHT:
 		return TheText.Get("FEC_PTR");	// Use LockTarget with Weapon Switch Right.
 		break;
-	
+
 	case VEHICLE_LOOKBEHIND:
-		return TheText.Get("FEC_LBC");	// Use Look Left With Look Right. 
+		return TheText.Get("FEC_LBC");	// Use Look Left With Look Right.
 		break;
 	default: break;
 	}
@@ -2911,7 +2912,7 @@ void CControllerConfigManager::SetControllerKeyAssociatedWithAction(e_Controller
 {
 	ResetSettingOrder(action);
 	int numOfSettings = GetNumOfSettingsForAction(action);
-	
+
 	m_aSettings[action][type].m_Key = key;
 	m_aSettings[action][type].m_ContSetOrder = numOfSettings + 1;
 }
@@ -2924,7 +2925,7 @@ int32 CControllerConfigManager::GetMouseButtonAssociatedWithAction(e_ControllerA
 void CControllerConfigManager::SetMouseButtonAssociatedWithAction(e_ControllerAction action, int32 button)
 {
 	int numOfSettings = GetNumOfSettingsForAction(action);
-	
+
 	m_aSettings[action][MOUSE].m_Key = button;
 	m_aSettings[action][MOUSE].m_ContSetOrder = numOfSettings + 1;
 }

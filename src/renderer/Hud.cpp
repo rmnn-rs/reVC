@@ -132,6 +132,9 @@ uint32 CHud::m_LastWanted;
 uint32 CHud::m_LastWeapon;
 uint32 CHud::m_LastTimeEnergyLost;
 
+extern bool gbHideInactiveWantedStars;
+extern bool gbCompactMoney;
+
 CSprite2d CHud::Sprites[NUM_HUD_SPRITES];
 
 struct
@@ -420,7 +423,14 @@ void CHud::Draw()
 			m_LastDisplayScore = CWorld::Players[CWorld::PlayerInFocus].m_nVisibleMoney;
 		}
 		if (m_DisplayScoreState != FADED_OUT) {
-			sprintf(sTemp, "$%08d", CWorld::Players[CWorld::PlayerInFocus].m_nVisibleMoney);
+			//sprintf(sTemp, "$%d", CWorld::Players[CWorld::PlayerInFocus].m_nVisibleMoney);
+
+                     if (gbCompactMoney)
+                        sprintf(sTemp, "$%d", CWorld::Players[CWorld::PlayerInFocus].m_nVisibleMoney);
+                     else
+                        sprintf(sTemp, "$%08d", CWorld::Players[CWorld::PlayerInFocus].m_nVisibleMoney);
+
+
 			AsciiToUnicode(sTemp, sPrint);
 
 			CFont::SetPropOff();
@@ -641,7 +651,7 @@ void CHud::Draw()
 
 			AsciiToUnicode(">", sPrintIcon);
 
-			for (int i = 0; i < 6; i++) {
+			/*for (int i = 0; i < 6; i++) {
 				if (FrontEndMenuManager.m_PrefsShowHud) {
 					if (playerPed->m_pWanted->GetWantedLevel() > i
 						&& (CTimer::GetTimeInMilliseconds() > playerPed->m_pWanted->m_nLastWantedLevelChange
@@ -662,8 +672,100 @@ void CHud::Draw()
 						CFont::PrintString(SCREEN_SCALE_FROM_RIGHT(110.0f + 23.0f * i), SCREEN_SCALE_Y(87.0f), sPrintIcon);
 					}
 				}
+			}*/
+
+			/*
+			// hides inactive dark stars
+                        for (int i = 0; i < playerPed->m_pWanted->GetWantedLevel(); i++) {
+                              if (FrontEndMenuManager.m_PrefsShowHud) {
+                                      if (CTimer::GetTimeInMilliseconds() > playerPed->m_pWanted->m_nLastWantedLevelChange + 2000
+                                            || FRAMECOUNTER & 4) {
+
+                                            WANTED_COLOR.a = alpha;
+                                            CFont::SetColor(WANTED_COLOR);
+                                            CFont::PrintString(SCREEN_SCALE_FROM_RIGHT(110.0f + 23.0f * i), SCREEN_SCALE_Y(87.0f), sPrintIcon);
+
+                             } else if (playerPed->m_pWanted->m_nMinWantedLevel > i && FRAMECOUNTER & 4) {
+                                            WANTED_COLOR_FLASH.a = alpha;
+                                            CFont::SetColor(WANTED_COLOR_FLASH);
+                                            CFont::PrintString(SCREEN_SCALE_FROM_RIGHT(110.0f + 23.0f * i), SCREEN_SCALE_Y(87.0f), sPrintIcon);
+                                        }
+                                }
+                        }
+		}*/
+
+			if (gbHideInactiveWantedStars) {
+				int wantedStars = Max(
+						playerPed->m_pWanted->GetWantedLevel(),
+						playerPed->m_pWanted->m_nMinWantedLevel
+						);
+
+				if (FrontEndMenuManager.m_PrefsShowHud) {
+					for (int i = 0; i < wantedStars; i++) {
+
+						if (playerPed->m_pWanted->GetWantedLevel() > i) {
+							// Actually wanted: bright and steady
+							WANTED_COLOR.a = alpha;
+							CFont::SetColor(WANTED_COLOR);
+						}
+						else if (playerPed->m_pWanted->m_nMinWantedLevel > i && FRAMECOUNTER & 4) {
+							// Grace period: dim and flashing
+							WANTED_COLOR_FLASH.a = alpha;
+							CFont::SetColor(WANTED_COLOR_FLASH);
+						}
+						else {
+							// Flash off frame: skip drawing
+							continue;
+						}
+
+						CFont::PrintString(
+								SCREEN_SCALE_FROM_RIGHT(110.0f + 23.0f * i),
+								SCREEN_SCALE_Y(87.0f),
+								sPrintIcon
+								);
+					}
+				}
+			} else {
+				// Original wanted-star behavior (includes dark background stars)
+				if (FrontEndMenuManager.m_PrefsShowHud) {
+					for (int i = 0; i < 6; i++) {
+						if (playerPed->m_pWanted->GetWantedLevel() > i
+								&& (CTimer::GetTimeInMilliseconds() > playerPed->m_pWanted->m_nLastWantedLevelChange + 2000
+									|| FRAMECOUNTER & 4)) {
+
+							WANTED_COLOR.a = alpha;
+							CFont::SetColor(WANTED_COLOR);
+							CFont::PrintString(
+									SCREEN_SCALE_FROM_RIGHT(110.0f + 23.0f * i),
+									SCREEN_SCALE_Y(87.0f),
+									sPrintIcon
+									);
+
+						} else if (playerPed->m_pWanted->m_nMinWantedLevel > i && FRAMECOUNTER & 4) {
+
+							WANTED_COLOR_FLASH.a = alpha;
+							CFont::SetColor(WANTED_COLOR_FLASH);
+							CFont::PrintString(
+									SCREEN_SCALE_FROM_RIGHT(110.0f + 23.0f * i),
+									SCREEN_SCALE_Y(87.0f),
+									sPrintIcon
+									);
+
+						} else if (playerPed->m_pWanted->GetWantedLevel() <= i) {
+
+							NOTWANTED_COLOR.a = alpha;
+							CFont::SetColor(NOTWANTED_COLOR);
+							CFont::PrintString(
+									SCREEN_SCALE_FROM_RIGHT(110.0f + 23.0f * i),
+									SCREEN_SCALE_Y(87.0f),
+									sPrintIcon
+									);
+						}
+					}
+				}
 			}
 		}
+
 
 		static int32 nMediaLevelCounter = 0;
 		if (CStats::ShowChaseStatOnScreen != 0) {
@@ -698,7 +800,7 @@ void CHud::Draw()
 					colour = CRGBA(178, 0, 162, 180);
 				CFont::SetColor(colour);
 				CFont::PrintString(SCREEN_SCALE_FROM_RIGHT(110.0f), SCREEN_SCALE_Y(113.0f), gUString);
-				
+
 				if (CStats::FindChaseString(fCurAttentionLevel) != prevChaseString) {
 					prevChaseString = CStats::FindChaseString(fCurAttentionLevel);
 					nMediaLevelCounter = 100;
@@ -944,7 +1046,7 @@ void CHud::Draw()
 		/*
 			DrawOnScreenTimer
 		*/
-		
+
 		wchar sTimer[16];
 
 		if (!CUserDisplay::OnscnTimer.m_sClocks[0].m_bClockProcessed)
@@ -1035,7 +1137,7 @@ void CHud::Draw()
 
 							// shadow
 							CSprite2d::DrawRect(CRect(left + SCREEN_SCALE_X(6.0f), top + SCREEN_SCALE_Y(2.0f), right + SCREEN_SCALE_X(6.0f), bottom + SCREEN_SCALE_Y(2.0f)), CRGBA(0, 0, 0, 255));
-							
+
 							CSprite2d::DrawRect(CRect(left + SCREEN_SCALE_X(4.0f), top, right + SCREEN_SCALE_X(4.0f), bottom), CRGBA(27, 89, 130, 255));
 							CSprite2d::DrawRect(CRect(left + SCREEN_SCALE_X(4.0f), top, left + SCREEN_SCALE_X(counter) / 2.0f + SCREEN_SCALE_X(4.0f), bottom), CRGBA(97, 194, 247, 255));
 						}
@@ -1066,7 +1168,7 @@ void CHud::Draw()
 			CRadar::DrawMap();
 			if (FrontEndMenuManager.m_PrefsRadarMode != 1) {
 				CRect rect(0.0f, 0.0f, SCREEN_SCALE_X(RADAR_WIDTH), SCREEN_SCALE_Y(RADAR_HEIGHT));
-				
+
 				rect.Translate(SCREEN_SCALE_X_FIX(RADAR_LEFT), SCREEN_SCALE_FROM_BOTTOM(RADAR_BOTTOM + RADAR_HEIGHT));
 
 #ifdef FIX_BUGS
@@ -1193,7 +1295,7 @@ void CHud::Draw()
 
 			if (TheCamera.m_WideScreenOn) {
 				onceItWasWidescreen = true;
-				
+
 				if (FrontEndMenuManager.m_PrefsShowSubtitles || !CCutsceneMgr::IsRunning()) {
 					CFont::SetCentreSize(SCREEN_WIDTH - SCREEN_SCALE_X(60.0f));
 					CFont::SetScale(SCREEN_SCALE_X(0.58f), SCREEN_SCALE_Y(1.2f));
@@ -1736,7 +1838,7 @@ void CHud::Initialise()
 	CounterOnLastFrame[0] = false;
 	CounterOnLastFrame[1] = false;
 	CounterOnLastFrame[2] = false;
-	
+
 	m_ItemToFlash = ITEM_NONE;
 	OddJob2Timer = 0;
 	OddJob2OffTimer = 0.0f;

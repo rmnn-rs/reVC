@@ -46,6 +46,7 @@ enum e_ControllerAction
 	VEHICLE_HORN,
 	TOGGLE_SUBMISSIONS,
 	VEHICLE_HANDBRAKE,
+	VEHICLE_LIGHTS,
 	PED_1RST_PERSON_LOOK_LEFT,
 	PED_1RST_PERSON_LOOK_RIGHT,
 	VEHICLE_LOOKLEFT,
@@ -153,16 +154,16 @@ public:
 #ifdef LOAD_INI_SETTINGS
 	static uint32 ms_padButtonsInited;
 #endif
-	
+
 	CControllerConfigManager();
 
 	void  MakeControllerActionsBlank();
-	
+
 	int32 GetJoyButtonJustDown();
-	
+
 	void  SaveSettings(int32 file);
 	void  LoadSettings(int32 file);
-	
+
 	void  InitDefaultControlConfiguration();
 	void  InitDefaultControlConfigMouse(CMouseControllerState const &availableButtons);
 	void  InitDefaultControlConfigJoyPad(uint32 buttons);
@@ -180,10 +181,10 @@ public:
 	void  UpdateJoyInConfigMenus_ButtonUp(int32 button, int32 padnumber);
 	void  AffectControllerStateOn_ButtonUp(int32 button, eControllerType type);
 	void  AffectControllerStateOn_ButtonUp_All_Player_States(int32 button, eControllerType type, CControllerState &state);
-	
+
 	void  AffectPadFromKeyBoard();
 	void  AffectPadFromMouse();
-	
+
 	void  ClearSimButtonPressCheckers();
 
 	bool  GetIsKeyboardKeyDown    (RsKeyCodes keycode);
@@ -202,7 +203,7 @@ public:
 
 #ifdef RADIO_SCROLL_TO_PREV_STATION
 	bool IsAnyVehicleActionAssignedToMouseKey(int32 key);
-#endif 
+#endif
 
 	bool GetIsKeyBlank(int32 key, eControllerType type);
 	e_ControllerActionType GetActionType(e_ControllerAction action);
@@ -218,7 +219,7 @@ public:
 	int32 GetControllerKeyAssociatedWithAction(e_ControllerAction action, eControllerType type);
 
 	void  UpdateJoyButtonState(int32 padnumber);
-	
+
 	bool  GetIsActionAButtonCombo             (e_ControllerAction action);
 	wchar *GetButtonComboText                 (e_ControllerAction action);
 	void  SetControllerKeyAssociatedWithAction(e_ControllerAction action, int32 key, eControllerType type);
@@ -236,3 +237,4 @@ extern CControllerConfigManager ControlsManager;
 #endif
 
 #endif // __GTA_CONTROLLERCONFIG_H__
+

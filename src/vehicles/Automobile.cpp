@@ -51,8 +51,10 @@
 #include "Bike.h"
 #include "Wanted.h"
 #include "SaveBuf.h"
+#include "ControllerConfig.h"
 
 bool bAllCarCheat;
+bool gPlayerHeadlightsOn = false;
 
 #if defined ANDROID
 int16 g_usLastProcessedModelIndexAutomobile = 0;
@@ -729,7 +731,7 @@ CAutomobile::ProcessControl(void)
 				ApplyTurnSpeed();
 			}
 			bIsInSafePosition = true;
-			bIsStuck = false;			
+			bIsStuck = false;
 		}
 
 		CPhysical::ProcessControl();
@@ -1721,6 +1723,19 @@ CAutomobile::ProcessControl(void)
 				bRenderScorched = true;
 			}
 	}
+
+/*	if (this == FindPlayerVehicle()) {
+    if (CPad::GetPad(0)->GetCharJustDown('N'))
+        gPlayerHeadlightsOn = !gPlayerHeadlightsOn;
+}*/
+
+if (this == FindPlayerVehicle()) {
+	if (ControlsManager.GetIsKeyboardKeyJustDown(
+			(RsKeyCodes)ControlsManager.GetControllerKeyAssociatedWithAction(
+					VEHICLE_LIGHTS, KEYBOARD)))
+		gPlayerHeadlightsOn = !gPlayerHeadlightsOn;
+}
+
 }
 
 #pragma optimize("", on)
@@ -2229,7 +2244,7 @@ CAutomobile::PreRender(void)
 	// Process lights
 
 	// Turn lights on/off
-	bool shouldLightsBeOn = 
+/*	bool shouldLightsBeOn =
 		CClock::GetHours() > 20 ||
 		CClock::GetHours() > 19 && CClock::GetMinutes() > (m_randomSeed & 0x3F) ||
 		CClock::GetHours() < 7 ||
@@ -2244,7 +2259,33 @@ CAutomobile::PreRender(void)
 				bLightsOn = false;
 		}else
 			bLightsOn = shouldLightsBeOn;
-	}
+	}*/
+
+	// Turn lights on/off
+bool shouldLightsBeOn =
+    CClock::GetHours() > 20 ||
+    (CClock::GetHours() > 19 && CClock::GetMinutes() > (m_randomSeed & 0x3F)) ||
+    CClock::GetHours() < 7 ||
+    (CClock::GetHours() < 8 && CClock::GetMinutes() < (m_randomSeed & 0x3F)) ||
+    (m_randomSeed / 50000.0f < CWeather::Foggyness) ||
+    (m_randomSeed / 50000.0f < CWeather::WetRoads);
+
+// Player vehicle uses manual headlights
+CVehicle *playerVeh = FindPlayerVehicle();
+if (playerVeh && this == playerVeh)
+    shouldLightsBeOn = gPlayerHeadlightsOn;
+
+if (shouldLightsBeOn != bLightsOn && GetStatus() != STATUS_WRECKED) {
+    if (GetStatus() == STATUS_ABANDONED) {
+        // Turn off lights on abandoned vehicles only when they're far away
+        if (bLightsOn &&
+            Abs(TheCamera.GetPosition().x - GetPosition().x) +
+            Abs(TheCamera.GetPosition().y - GetPosition().y) > 100.0f)
+            bLightsOn = false;
+    } else {
+        bLightsOn = shouldLightsBeOn;
+    }
+}
 
 	// Actually render the lights
 	bool alarmOn = false;
@@ -3245,7 +3286,7 @@ CAutomobile::FireTruckControl(void)
 			return;
 #ifdef FREE_CAM
 		if (!CCamera::bFreeCam)
-#endif 
+#endif
 		{
 			m_fCarGunLR += CPad::GetPad(0)->GetCarGunLeftRight() * 0.00025f * CTimer::GetTimeStep();
 			m_fCarGunUD += CPad::GetPad(0)->GetCarGunUpDown() * 0.0001f * CTimer::GetTimeStep();
@@ -3695,7 +3736,7 @@ CAutomobile::HydraulicControl(void)
 }
 
 void
-CAutomobile::ProcessBuoyancy(void)	
+CAutomobile::ProcessBuoyancy(void)
 {
 	int i;
 	CVector impulse, point;
@@ -3853,7 +3894,7 @@ CAutomobile::ProcessBuoyancy(void)
 					CParticle::AddParticle(PARTICLE_RUBBER_SMOKE,
 						pos + GetPosition(), -0.6f*right,
 						nil, size, smokeCol, 0, 0, 0, 0);
-				
+
 					if((CTimer::GetFrameCounter() & 0xF) == 0)
 						DMAudio.PlayOneShot(m_audioEntityId, SOUND_CAR_SPLASH, 2000.0f*fSpeed);
 				}
@@ -5191,7 +5232,7 @@ CPed::MakeTyresMuddySectorList(CPtrList &list)
 		if (veh->m_scanCode != CWorld::GetCurrentScanCode()) {
 			veh->m_scanCode = CWorld::GetCurrentScanCode();
 
-			if (Abs(GetPosition().x - veh->GetPosition().x) < 10.0f && Abs(GetPosition().y - veh->GetPosition().y) < 10.0f) {				
+			if (Abs(GetPosition().x - veh->GetPosition().x) < 10.0f && Abs(GetPosition().y - veh->GetPosition().y) < 10.0f) {
 				if (veh->IsCar()) {
 					bike = nil;
 					car = (CAutomobile*)veh;

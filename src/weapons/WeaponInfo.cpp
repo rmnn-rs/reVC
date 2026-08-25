@@ -30,7 +30,7 @@ uint16 CWeaponInfo::ms_aReloadSampleTime[WEAPONTYPE_TOTALWEAPONS] =
 	0,			// ROCKET
 	250,		// COLT45
 	250,		// PYTHON
-	150,		// SHOTGUN
+	650,		// SHOTGUN
 	650,		// SPAS12 SHOTGUN
 	650,		// STUBBY SHOTGUN
 	400,		// TEC9

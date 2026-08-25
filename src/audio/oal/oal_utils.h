@@ -55,3 +55,4 @@ using namespace re3_openal;
 #endif
 
 #endif // __GTA_OAL_UTILS_H__
+

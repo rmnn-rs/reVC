@@ -317,12 +317,15 @@ void StoreIni(const char *cat, const char *key, char *val, int size)
 	cfg[cat][key] = val;
 }
 
+bool gbHideInactiveWantedStars = true;
+bool gbCompactMoney = true;
+
 const char *iniControllerActions[] = { "PED_FIREWEAPON", "PED_CYCLE_WEAPON_RIGHT", "PED_CYCLE_WEAPON_LEFT", "GO_FORWARD", "GO_BACK", "GO_LEFT", "GO_RIGHT", "PED_SNIPER_ZOOM_IN",
-	"PED_SNIPER_ZOOM_OUT", "VEHICLE_ENTER_EXIT", "CAMERA_CHANGE_VIEW_ALL_SITUATIONS", "PED_JUMPING", "PED_SPRINT", "PED_LOOKBEHIND", "PED_DUCK", "PED_ANSWER_PHONE", 
+	"PED_SNIPER_ZOOM_OUT", "VEHICLE_ENTER_EXIT", "CAMERA_CHANGE_VIEW_ALL_SITUATIONS", "PED_JUMPING", "PED_SPRINT", "PED_LOOKBEHIND", "PED_DUCK", "PED_ANSWER_PHONE",
 #ifdef BIND_VEHICLE_FIREWEAPON
 	"VEHICLE_FIREWEAPON",
 #endif
-	"VEHICLE_ACCELERATE", "VEHICLE_BRAKE", "VEHICLE_CHANGE_RADIO_STATION", "VEHICLE_HORN", "TOGGLE_SUBMISSIONS", "VEHICLE_HANDBRAKE", "PED_1RST_PERSON_LOOK_LEFT",
+	"VEHICLE_ACCELERATE", "VEHICLE_BRAKE", "VEHICLE_CHANGE_RADIO_STATION", "VEHICLE_HORN", "TOGGLE_SUBMISSIONS", "VEHICLE_HANDBRAKE", "VEHICLE_LIGHTS", "PED_1RST_PERSON_LOOK_LEFT",
 	"PED_1RST_PERSON_LOOK_RIGHT", "VEHICLE_LOOKLEFT", "VEHICLE_LOOKRIGHT", "VEHICLE_LOOKBEHIND", "VEHICLE_TURRETLEFT", "VEHICLE_TURRETRIGHT", "VEHICLE_TURRETUP", "VEHICLE_TURRETDOWN",
 	"PED_CYCLE_TARGET_LEFT", "PED_CYCLE_TARGET_RIGHT", "PED_CENTER_CAMERA_BEHIND_PLAYER", "PED_LOCK_TARGET", "NETWORK_TALK", "PED_1RST_PERSON_LOOK_UP", "PED_1RST_PERSON_LOOK_DOWN",
 	"_CONTROLLERACTION_36", "TOGGLE_DPAD", "SWITCH_DEBUG_CAM_ON", "TAKE_SCREEN_SHOT", "SHOW_MOUSE_POINTER_TOGGLE", "UNKNOWN_ACTION" };
@@ -525,6 +528,8 @@ bool LoadINISettings()
 	ReadIniIfExists("Display", "ShowHud", &FrontEndMenuManager.m_PrefsShowHud);
 	ReadIniIfExists("Display", "RadarMode", &FrontEndMenuManager.m_PrefsRadarMode);
 	ReadIniIfExists("Display", "ShowLegends", &FrontEndMenuManager.m_PrefsShowLegends);
+	ReadIniIfExists("HUD", "HideInactiveWantedStars", &gbHideInactiveWantedStars);
+        ReadIniIfExists("HUD", "CompactMoney", &gbCompactMoney);
 
 #ifdef EXTENDED_COLOURFILTER
 	ReadIniIfExists("CustomPipesValues", "PostFXIntensity", &CPostFX::Intensity);
@@ -542,13 +547,13 @@ bool LoadINISettings()
 #endif
 
 #ifdef PROPER_SCALING
-	ReadIniIfExists("Draw", "ProperScaling", &CDraw::ms_bProperScaling);	
+	ReadIniIfExists("Draw", "ProperScaling", &CDraw::ms_bProperScaling);
 #endif
 #ifdef FIX_RADAR
-	ReadIniIfExists("Draw", "FixRadar", &CDraw::ms_bFixRadar);	
+	ReadIniIfExists("Draw", "FixRadar", &CDraw::ms_bFixRadar);
 #endif
 #ifdef FIX_SPRITES
-	ReadIniIfExists("Draw", "FixSprites", &CDraw::ms_bFixSprites);	
+	ReadIniIfExists("Draw", "FixSprites", &CDraw::ms_bFixSprites);
 #endif
 #ifdef DRAW_GAME_VERSION_TEXT
 	ReadIniIfExists("General", "DrawVersionText", &gbDrawVersionText);
@@ -564,7 +569,7 @@ bool LoadINISettings()
 			CMenuScreenCustom::CMenuEntry &option = aScreens[i].m_aEntries[j];
 			if (option.m_Action == MENUACTION_NOTHING)
 				break;
-				
+
 			// CFO check
 			if (option.m_Action < MENUACTION_NOTHING && option.m_CFO->save) {
 				// Migrate from old .ini to new .ini
@@ -634,6 +639,8 @@ void SaveINISettings()
 	StoreIni("Display", "ShowHud", FrontEndMenuManager.m_PrefsShowHud);
 	StoreIni("Display", "RadarMode", FrontEndMenuManager.m_PrefsRadarMode);
 	StoreIni("Display", "ShowLegends", FrontEndMenuManager.m_PrefsShowLegends);
+	StoreIni("HUD", "HideInactiveWantedStars", gbHideInactiveWantedStars);
+        StoreIni("HUD", "CompactMoney", gbCompactMoney);
 
 #ifdef EXTENDED_COLOURFILTER
 	StoreIni("CustomPipesValues", "PostFXIntensity", CPostFX::Intensity);
@@ -650,14 +657,14 @@ void SaveINISettings()
 	StoreIni("Rendering", "NewRenderer", gbNewRenderer);
 #endif
 
-#ifdef PROPER_SCALING	
-	StoreIni("Draw", "ProperScaling", CDraw::ms_bProperScaling);	
+#ifdef PROPER_SCALING
+	StoreIni("Draw", "ProperScaling", CDraw::ms_bProperScaling);
 #endif
 #ifdef FIX_RADAR
 	StoreIni("Draw", "FixRadar", CDraw::ms_bFixRadar);
 #endif
 #ifdef FIX_SPRITES
-	StoreIni("Draw", "FixSprites", CDraw::ms_bFixSprites);	
+	StoreIni("Draw", "FixSprites", CDraw::ms_bFixSprites);
 #endif
 #ifdef DRAW_GAME_VERSION_TEXT
 	StoreIni("General", "DrawVersionText", gbDrawVersionText);
@@ -671,7 +678,7 @@ void SaveINISettings()
 			CMenuScreenCustom::CMenuEntry &option = aScreens[i].m_aEntries[j];
 			if (option.m_Action == MENUACTION_NOTHING)
 				break;
-				
+
 			if (option.m_Action < MENUACTION_NOTHING && option.m_CFO->save) {
 				if (option.m_Action == MENUACTION_CFO_SLIDER)
 					StoreIni(option.m_CFO->saveCat, option.m_CFO->save, *(float*)option.m_CFO->value);
@@ -862,7 +869,7 @@ void CTweakVars::Add(CTweakVar *var)
 
 	TweakVarsList[TweakVarsListSize++] = var;
 //	TweakVarsList.push_back(var);
-	
+
 	if ( bAddTweakVarsNow )
 		var->AddDBG(pTweakVarsDefaultPath);
 }
@@ -873,16 +880,16 @@ void CTweakVars::AddDBG(const char *path)
 
 	for(int i = 0; i < TweakVarsListSize; ++i)
 		TweakVarsList[i]->AddDBG(pTweakVarsDefaultPath);
-	
+
 	bAddTweakVarsNow = true;
 }
 
 void CTweakSwitch::AddDBG(const char *path)
-{		
+{
 	DebugMenuEntry *e = DebugMenuAddVar(m_pPath == NULL ? path : m_pPath, m_pVarName, (int32_t *)m_pIntVar, m_pFunc, 1, m_nMin, m_nMax, m_aStr);
 	DebugMenuEntrySetWrap(e, true);
 }
-	
+
 void CTweakFunc::AddDBG  (const char *path) { DebugMenuAddCmd     (m_pPath == NULL ? path : m_pPath, m_pVarName, m_pFunc); }
 void CTweakBool::AddDBG  (const char *path) { DebugMenuAddVarBool8(m_pPath == NULL ? path : m_pPath, m_pVarName, (int8_t *)m_pBoolVar,  NULL); }
 void CTweakInt8::AddDBG  (const char *path) { DebugMenuAddVar     (m_pPath == NULL ? path : m_pPath, m_pVarName, (int8_t *)m_pIntVar,   NULL, m_nStep, m_nLoawerBound, m_nUpperBound, NULL); }
@@ -898,7 +905,7 @@ static const char *wt[] = {
 			"Sunny", "Cloudy", "Rainy", "Foggy"
 		};
 
-SETTWEAKPATH("TEST");		
+SETTWEAKPATH("TEST");
 TWEAKSWITCH(CWeather::NewWeatherType, 0, 3, wt, NULL);
 */
 
@@ -1019,7 +1026,7 @@ DebugMenuPopulate(void)
 		DebugMenuAddCmd("Spawn", "Spawn Skimmer", [](){ SpawnCar(MI_SKIMMER); });
 
 		DebugMenuAddVarBool8("Render", "Draw hud", &CHud::m_Wants_To_Draw_Hud, nil);
-#ifdef PROPER_SCALING	
+#ifdef PROPER_SCALING
 		DebugMenuAddVarBool8("Render", "Proper Scaling", &CDraw::ms_bProperScaling, nil);
 #endif
 #ifdef FIX_RADAR
@@ -1099,8 +1106,8 @@ extern bool gbRenderWorld2;
 		DebugMenuAddVarBool8("Debug Render", "Don't render Vehicles", &gbDontRenderVehicles, nil);
 		DebugMenuAddVarBool8("Debug Render", "Don't render Objects", &gbDontRenderObjects, nil);
 		DebugMenuAddVarBool8("Debug Render", "Don't Render Water", &gbDontRenderWater, nil);
-		
-		
+
+
 #ifdef DRAW_GAME_VERSION_TEXT
 		DebugMenuAddVarBool8("Debug", "Version Text", &gbDrawVersionText, nil);
 #endif
@@ -1124,7 +1131,7 @@ extern bool gbRenderWorld2;
 		//DebugMenuAddCmd("Debug", "Stop Credits", CCredits::Stop);
 
 #ifdef RELOADABLES
-// maybe put it back if we have more to reload 
+// maybe put it back if we have more to reload
 //		DebugMenuAddCmd("Reload", "HUD.TXD", CHud::ReloadTXD);
 #endif
 
@@ -1193,20 +1200,20 @@ void re3_assert(const char *expr, const char *filename, unsigned int lineno, con
 	int nCode;
 
 	strcpy_s(re3_buff, re3_buffsize, "Assertion failed!" );
-	strcat_s(re3_buff, re3_buffsize, "\n" );	
-	
+	strcat_s(re3_buff, re3_buffsize, "\n" );
+
 	strcat_s(re3_buff, re3_buffsize, "File: ");
 	strcat_s(re3_buff, re3_buffsize, filename );
-	strcat_s(re3_buff, re3_buffsize, "\n" );	
+	strcat_s(re3_buff, re3_buffsize, "\n" );
 
 	strcat_s(re3_buff, re3_buffsize, "Line: " );
 	_itoa_s( lineno, re3_buff + strlen(re3_buff), re3_buffsize - strlen(re3_buff), 10 );
 	strcat_s(re3_buff, re3_buffsize, "\n");
-	
+
 	strcat_s(re3_buff, re3_buffsize, "Function: ");
 	strcat_s(re3_buff, re3_buffsize, func );
-	strcat_s(re3_buff, re3_buffsize, "\n" );	
-	
+	strcat_s(re3_buff, re3_buffsize, "\n" );
+
 	strcat_s(re3_buff, re3_buffsize, "Expression: ");
 	strcat_s(re3_buff, re3_buffsize, expr);
 	strcat_s(re3_buff, re3_buffsize, "\n");
@@ -1270,12 +1277,12 @@ void re3_trace(const char *filename, unsigned int lineno, const char *func, cons
 #ifdef _WIN32
 	vsprintf_s(re3_buff, re3_buffsize, format, va);
 	va_end(va);
-	
+
 	sprintf_s(buff, re3_buffsize * 2, "[%s.%s:%d]: %s", filename, func, lineno, re3_buff);
 #else
 	vsprintf(re3_buff, format, va);
 	va_end(va);
-	
+
 	sprintf(buff, "[%s.%s:%d]: %s", filename, func, lineno, re3_buff);
 #endif
 #if defined ANDROID
@@ -1293,7 +1300,7 @@ void re3_usererror(const char *format, ...)
 #ifdef _WIN32
 	vsprintf_s(re3_buff, re3_buffsize, format, va);
 	va_end(va);
-	
+
 	::MessageBoxA(nil, re3_buff, "reVC Error!",
 		MB_OK|MB_ICONHAND|MB_SETFOREGROUND|MB_TASKMODAL);
 

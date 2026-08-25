@@ -13,8 +13,10 @@ enum Config {
 	MAX_CDIMAGES = 8, // additional cdimages
 	MAX_CDCHANNELS = 5,
 
-	MODELINFOSIZE = 6500,	// 4900 on PS2
-	TXDSTORESIZE = 1385,
+	//MODELINFOSIZE = 6500,	// 4900 on PS2
+	MODELINFOSIZE = 12000,	// 4900 on PS2
+	//TXDSTORESIZE = 1385,
+	TXDSTORESIZE = 4000,
 	COLSTORESIZE = 31,
 	EXTRADIRSIZE = 256,
 	CUTSCENEDIRSIZE = 512,
@@ -34,16 +36,21 @@ enum Config {
 	NUMOBJECTINFO = 210,
 
 	// Pool sizes
-	NUMPTRNODES = 50000,
+	//NUMPTRNODES = 50000,
+	NUMPTRNODES = 100000,
 	NUMENTRYINFOS = 3200,
 	NUMPEDS = 140,
 	NUMVEHICLES = 110,
-	NUMBUILDINGS = 7000,
+	//NUMBUILDINGS = 7000,
+	NUMBUILDINGS = 20000,
 	NUMTREADABLES = 1,
-	NUMOBJECTS = 460,
-	NUMDUMMIES = 2340,
+	//NUMOBJECTS = 460,
+	NUMOBJECTS = 2000,
+	//NUMDUMMIES = 2340,
+	NUMDUMMIES = 5000,
 	NUMAUDIOSCRIPTOBJECTS = 192,
-	NUMCOLMODELS = 4400,
+	//NUMCOLMODELS = 4400,
+	NUMCOLMODELS = 15000,
 	NUMCUTSCENEOBJECTS = 50,	// not a pool in VC
 
 	NUMANIMBLOCKS = 35,
@@ -54,7 +61,8 @@ enum Config {
 	// Path data
 	NUM_PATHNODES = 9650,
 	NUM_CARPATHLINKS = 3500,
-	NUM_MAPOBJECTS = 1250,
+	//NUM_MAPOBJECTS = 1250,
+	NUM_MAPOBJECTS = 5000,
 	NUM_PATHCONNECTIONS = 20400,
 
 	// Link list lengths
@@ -128,7 +136,8 @@ enum Config {
 	NUMROADBLOCKS = 300,
 	NUM_SCRIPT_ROADBLOCKS = 16,
 
-	NUMVISIBLEENTITIES = 2000,
+	//NUMVISIBLEENTITIES = 2000,
+	NUMVISIBLEENTITIES = 5000,
 	NUMINVISIBLEENTITIES = 150,
 
 	NUM_AUDIOENTITY_EVENTS = 4,
@@ -289,7 +298,7 @@ enum Config {
 #define FIX_INCOMPATIBLE_SAVES // try to fix incompatible saves, requires COMPATIBLE_SAVES
 #define LOAD_INI_SETTINGS // as the name suggests. fundamental for CUSTOM_FRONTEND_OPTIONS
 
-//#define NO_MOVIES	// add option to disable intro videos
+#define NO_MOVIES	// add option to disable intro videos
 
 #define EXTENDED_OFFSCREEN_DESPAWN_RANGE // Use onscreen despawn range for offscreen peds and vehicles to avoid them despawning in the distance when you look
                                          // away
@@ -321,7 +330,7 @@ enum Config {
 #define USE_TXD_CDIMAGE		// generate and load textures from txd.img
 #define PS2_ALPHA_TEST		// emulate ps2 alpha test
 #define IMPROVED_VIDEOMODE	// save and load videomode parameters instead of a magic number
-//#define DISABLE_LOADING_SCREEN // disable the loading screen which vastly improves the loading time
+#define DISABLE_LOADING_SCREEN // disable the loading screen which vastly improves the loading time
 #define DISABLE_VSYNC_ON_TEXTURE_CONVERSION // make texture conversion work faster by disabling vsync
 #define ANISOTROPIC_FILTERING	// set all textures to max anisotropic filtering
 //#define USE_TEXTURE_POOL
