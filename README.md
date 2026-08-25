@@ -4,46 +4,12 @@
 
 In this repository you'll find the fully reversed source code for GTA VC ([miami](https://github.com/rmnn-rs/reVC/tree/main/) branch).
 
-## Installation
-
-- reVC requires game assets to work, so you **must** own [a copy of GTA Vice City](https://store.steampowered.com/app/12110/Grand_Theft_Auto_Vice_City/).
-
 ## Screenshots
 
 ![screen_ 1613086852](https://user-images.githubusercontent.com/1521437/107714115-fa18f580-6ccc-11eb-9de5-eb4cd04865d3.png)
 ![screen_ 1613087193](https://user-images.githubusercontent.com/1521437/107714106-f4bbab00-6ccc-11eb-96a9-13821d9b9684.png)
-![screen_ 1613087332](https://user-images.githubusercontent.com/1521437/107714111-f84f3200-6ccc-11eb-902e-d757481d579a.png)
 ![screen_ 1613086989](https://user-images.githubusercontent.com/1521437/107714103-f38a7e00-6ccc-11eb-88a3-c8c2033c51d6.png)
-
-## Improvements
-
-We have implemented a number of changes and improvements to the original game.
-They can be configured in `core/config.h`.
-Some of them can be toggled at runtime, some cannot.
-
-* Fixed a lot of smaller and bigger bugs
-* User files (saves and settings) stored in GTA root directory
-* Settings stored in reVC.ini file instead of gta_vc.set
-* Debug menu to do and change various things (Ctrl-M to open)
-* Debug camera (Ctrl-B to toggle)
-* Rotatable camera
-* XInput controller support (Windows)
-* No loading screens between islands ("map memory usage" in menu)
-* Rendering
-  * Widescreen support (properly scaled HUD, Menu and FOV)
-  * PS2 MatFX (vehicle reflections)
-  * PS2 alpha test (better rendering of transparency)
-  * Xbox vehicle rendering
-  * Xbox world lightmap rendering (needs Xbox map)
-  * Xbox ped rim light
-  * Xbox screen rain droplets
-  * More customizable colourfilter
-* Menu
-  * More options
-  * Controller configuration menu
-  * ...
-* Can load DFFs and TXDs from other platforms, possibly with a performance penalty
-* ...
+![screen_ 1613087332](https://user-images.githubusercontent.com/1521437/107714111-f84f3200-6ccc-11eb-902e-d757481d579a.png)
 
 ## Modding
 
