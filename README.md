@@ -1,10 +1,5 @@
 <img src="https://github.com/mrxenginner/reVC/blob/miami/res/images/logo_1024.png?raw=true" alt="reVC logo" width="200">
 
-## Intro
-
-In this repository you'll find the fully reversed source code for GTA VC ([miami](https://github.com/rmnn-rs/reVC/tree/main/) branch).
-
-## Screenshots
 
 ![screen_ 1613086852](https://user-images.githubusercontent.com/1521437/107714115-fa18f580-6ccc-11eb-9de5-eb4cd04865d3.png)
 ![screen_ 1613087193](https://user-images.githubusercontent.com/1521437/107714106-f4bbab00-6ccc-11eb-96a9-13821d9b9684.png)
