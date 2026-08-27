@@ -231,7 +231,7 @@ enum Config {
 //#define USE_MY_DOCUMENTS
 #define THIS_IS_STUPID
 #define DONT_FIX_REPLAY_BUGS
-#define USE_TXD_CDIMAGE // generate and load textures from txd.img
+//#define USE_TXD_CDIMAGE // generate and load textures from txd.img
 //#define USE_TEXTURE_POOL // not possible because R* used custom RW33
 #define AUDIO_REFLECTIONS
 #else
